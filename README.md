@@ -1,6 +1,8 @@
 # minimal-functional-fox
 
 > ###### *A minimal, yet functional configuration for Firefox!*
+> ###### *Note: This fork uses different colours than the original. Feel free to fork from this and change them if you want.*
+> ###### *Color scheme used: Solarized Dark*
 
 ![Demo](https://raw.githubusercontent.com/mut-ex/minimal-functional-fox/master/demo.gif)
 
