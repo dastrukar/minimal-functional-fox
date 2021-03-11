@@ -1,30 +1,34 @@
  :root {
 
    /* Minimal Functional Fox variables*/
-  --mff-bg: #073642;
-  --mff-icon-color: #fdf6e3;
-  --mff-nav-toolbar-padding: 8px;
+  --mff-bg: #282828;
+  --mff-icon-color: #ebdbb2;
+  --mff-nav-toolbar-padding: 0px;
   --mff-sidebar-bg: var(--mff-bg);
   --mff-sidebar-color: #e0fbfc;
   --mff-tab-border-radius: 0px;
-  --mff-tab-color: #fefefa;
+  --mff-tab-unloaded: #3c3836;
+  --mff-tab-font-color: #d5c4a1;
+  --mff-tab-focused-font-color: #ebdbb2;
   --mff-tab-font-family: "Cantarell", sans;
   --mff-tab-font-size: 10pt;
   --mff-tab-font-weight: 400;
   --mff-tab-height: 33px;
-  --mff-tab-pinned-bg: #70c1b3;
-  --mff-tab-selected-bg: #cb4b16;
-  --mff-tab-soundplaying-bg: #b58900;
-  --mff-urlbar-color: #93a1a1;
-  --mff-urlbar-focused-color: #002b36;
+  --mff-tab-pinned-bg: #458588;
+  --mff-tab-selected-bg: #d65d0e;
+  --mff-tab-soundplaying-bg: #d79921;
+  --mff-urlbar-font-color: #d5c4a1;
+  --mff-urlbar-focused-color: #928374;
+  --mff-urlbar-focused-font-color: #ebdbb2;
   --mff-urlbar-font-family: "Cantarell", serif;
   --mff-urlbar-font-size: 12pt;
   --mff-urlbar-font-weight: 700;
-  --mff-urlbar-results-color: #2aa198;
+  --mff-urlbar-results-color: #689d6a;
   --mff-urlbar-results-font-family: "Source-Code-Pro", "mononoki Nerd Font", mono;
   --mff-urlbar-results-font-size: 10pt;
   --mff-urlbar-results-font-weight: 700;
-  --mff-urlbar-results-url-color: #268bd2;
+  --mff-urlbar-results-url-color: #458588;
+  --mff-findbar-noresults-color: #fb4934;
   /*   --mff-tab-selected-bg: linear-gradient(90deg, rgba(232,74,95,1) 0%, rgba(255,132,124,1) 50%, rgba(254,206,168,1) 100%); */
   /*   --mff-urlbar-font-weight: 600; */
 
@@ -47,6 +51,19 @@
    |_/_/ \_\___/___/
 
 */
+
+/* Unloaded tabs */
+@-moz-document
+    url(chrome://browser/content/browser.xhtml),
+    url(chrome://browser/content/browser.xul)
+{
+    tab[pending], #alltabs-popup menuitem[pending]
+    {
+      border-style: solid !important;
+      border-bottom-width: 2px !important;
+      border-color: var(--mff-tab-unloaded) !important;
+    }
+}
 
 .tab-background[selected="true"] {
   background: var(--mff-tab-selected-bg) !important;
@@ -84,7 +101,11 @@
   font-family: var(--mff-tab-font-family) !important;
   font-weight: var(--mff-tab-font-weight) !important;
   font-size: var(--mff-tab-font-size) !important;
-  color: var(--mff-tab-color) !important;
+  color: var(--mff-tab-font-color) !important;
+}
+
+.tab-text[selected="true"] {
+  color: var(--mff-tab-focused-font-color) !important;
 }
 
 /* Hide the favicon for tabs */
@@ -110,7 +131,7 @@ hbox.tab-content[pinned=true] .tab-text {
   display: flex;
   overflow: hidden;
   justify-content: center;
-width: 50% !important;
+  width: 50% !important;
   max-width: 50% !important;
   min-width: 50% !important;
 }
@@ -136,7 +157,9 @@ width: 50% !important;
 }
 
 .tabbrowser-tab[soundplaying="true"] {
-  background-color: var(--mff-tab-soundplaying-bg) !important;
+  /*background-color: var(--mff-tab-soundplaying-bg) !important;*/
+  border-bottom: 2px solid var(--mff-tab-soundplaying-bg) !important;
+  color: var(--mff-urlbar-focused-font-color) !important;
 }
 
 #tabs-newtab-button {
@@ -201,11 +224,12 @@ width: 50% !important;
 #urlbar {
   max-width: 70% !important;
   margin: 0 15% !important;
+  border-radius: 0 !important;
 }
 
 #urlbar-input {
   font-size: var(--mff-urlbar-font-size) !important;
-  color: var(--mff-urlbar-color) !important;
+  color: var(--mff-urlbar-font-color) !important;
   font-family: var(--mff-urlbar-font-family) !important;
   font-weight: var(--mff-urlbar-font-weight)!important;
   text-align: center !important;
@@ -213,10 +237,12 @@ width: 50% !important;
 
 #urlbar-input:focus {
   background-color: var(--mff-urlbar-focused-color) !important;
+  color: var(--mff-urlbar-focused-font-color) !important;
 }
 
 #urlbar-input:hover {
   background-color: var(--mff-urlbar-focused-color) !important;
+  color: var(--mff-urlbar-focused-font-color) !important;
 }
 
 #urlbar-background {
@@ -272,7 +298,8 @@ tab.tabbrowser-tab {
 }
 
 tab.tabbrowser-tab:hover {
-  box-shadow: 0 1px 4px rgba(0,0,0,.05);
+  color: var(--mff-tab-focused-font-color) !important;
+  box-shadow: 0 1px 4px rgba(0,0,0,.05) var(--mff-tab-focused-color);
 }
 
 image#star-button {
@@ -281,10 +308,6 @@ image#star-button {
 
 toolbar#nav-bar {
   padding: var(--mff-nav-toolbar-padding) !important;
-}
-
-toolbar#nav-bar {
-  padding: 4px !important;
 }
 
 
@@ -312,6 +335,10 @@ findbar {
   background-color: var(--mff-urlbar-focused-color) !important;
   border: none !important;
   border-radius: 0px !important;
+}
+
+.findbar-textbox[status="notfound"] {
+  background-color: var(--mff-findbar-noresults-color) !important;
 }
 
 /*
